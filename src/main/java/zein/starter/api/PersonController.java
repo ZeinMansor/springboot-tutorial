@@ -1,10 +1,13 @@
 package zein.starter.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import zein.starter.model.Person;
 import zein.starter.service.PersonService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +22,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public void addPerson (@RequestBody Person person) {
+    public void addPerson (@Valid @NotBlank @RequestBody Person person) {
         // System.out.println(person.getName());
         personService.addPerson(person);
     }
@@ -40,7 +43,7 @@ public class PersonController {
     }
 
     @PutMapping(path = "{id}")
-    public void updateById(@PathVariable UUID id , @RequestBody Person newPerson) {
+    public void updateById(@PathVariable UUID id , @Valid @NotBlank @RequestBody Person newPerson) {
         personService.updatePerson(id, newPerson);
     }
 
